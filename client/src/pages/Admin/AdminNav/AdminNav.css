@@ -1,0 +1,15 @@
+.admin-nav-bar{
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    background-color: rgb(255,97,0);
+
+}
+.link-container{
+    width: auto;
+    text-align: center;
+    padding: 15px 5px;
+    font-size: 16px;
+    border-bottom: 2px solid white;
+    font-family: 'Mulish' , sans-serif;
+}

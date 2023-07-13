@@ -1,0 +1,10 @@
+.booking-list{
+    width: 500px;
+    height: auto;
+    background-color: white;
+    font-family: 'Mulish' , sans-serif;
+    padding: 20px;
+    margin:  10px 50px 0 500px;
+    list-style: none;
+    border: 2px solid rgb(255 , 97 , 0);
+}
