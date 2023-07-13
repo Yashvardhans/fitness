@@ -54,17 +54,20 @@ export const bookClass = async (req, res) => {
     const classItem = await Class.findById(id).select('startTime endTime');
     const user = await User.findById(userId);
 
-    if (!classItem || !user) {
-      return res.status(404).json({ error: 'Class or user not found' });
+    if (!classItem) {
+      return res.status(404).json({ error: 'Class  not found' });
+    }
+    if(!user){
+      return res.status(404).json({error :'User not found'})
     }
 
     const existingBooking = await Booking.findOne({
-      class: classItem._id,
-      user: user._id,
+      class: classItem._id
     });
 
     if (existingBooking) {
       return res.status(400).json({ error: 'Class is already booked' });
+      
     }
 
     const booking = new Booking({
@@ -96,12 +99,35 @@ export const getBookings = async (req, res) => {
   }
 };
 
+export const updateClass = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, startTime, endTime } = req.body;
+
+  try {
+    const updatedClass = await Class.findByIdAndUpdate(
+      id,
+      { name, description, startTime, endTime },
+      { new: true }
+    );
+
+    if (!updatedClass) {
+      return res.status(404).json({ error: 'Class not found' });
+    }
+
+    res.json(updatedClass);
+  } catch (error) {
+    console.error('Failed to update class details:', error);
+    res.status(500).json({ error: 'Failed to update class details' });
+  }
+};
 
 export const deleteClass = async (req, res) => {
   const { classId } = req.params;
 
   try {
     await Class.findByIdAndDelete(classId);
+
+    await Booking.findByIdAndDelete(classId);
     res.json({ message: 'Class deleted successfully' });
   } catch (error) {
     console.error('Failed to delete class:', error);

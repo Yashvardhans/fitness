@@ -20,8 +20,8 @@ const AllClasses = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-    
-        setUserData(response.data);
+        console.log(response.data);
+        setUserData(response.data.user);
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
@@ -48,7 +48,7 @@ const AllClasses = () => {
                 <div  className='class-card' key={cl?._id}>
                   <h2>{cl.name}</h2>
                   <p>{cl.description}</p>
-                  <ClassBooking userId={userData?._id} classId={cl._id}></ClassBooking>
+                  <ClassBooking userId={userData?._id} classId={cl?._id}></ClassBooking>
                 </div>
         ))}
           </div>

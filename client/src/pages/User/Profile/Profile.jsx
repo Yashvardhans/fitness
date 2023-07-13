@@ -17,8 +17,8 @@ const ProfilePage = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(userData.name);
-        setUserData(response.data);
+       
+        setUserData(response.data.user);
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
@@ -36,7 +36,7 @@ const ProfilePage = () => {
           <p>Name: <span className="user-details">{userData.name}</span></p>
           <p>Email: <span className="user-details">{userData.email}</span></p>
           <p>Joined ON : <span className="user-details">{date(userData.joinedOn , "dddd, mmmm dS, yyyy")}</span></p>
-          {/* Display other user data */}
+          
         </div>
       ) : (
         <p>Loading user data...</p>

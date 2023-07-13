@@ -38,6 +38,28 @@ export const getCoaches = async (req , res) =>{
 
 }
 
+export const updateTrainer = async (req,res) =>{
+  const { id } = req.params;
+  const { name, email, mobile, spec } = req.body;
+
+  try {
+    const coach = await Coach.findByIdAndUpdate(
+      id,
+      { name, email, mobile, spec },
+      { new: true }
+    );
+
+    if (!coach) {
+      return res.status(404).json({ error: 'Coach not found' });
+    }
+
+    res.json(coach);
+  } catch (error) {
+    console.error('Failed to update coach details:', error);
+    res.status(500).json({ error: 'Failed to update coach details' });
+  }
+}
+
 
 export const deleteTrainer = async (req, res) => {
   const { coachId } = req.params;
